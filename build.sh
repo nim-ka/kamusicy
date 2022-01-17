@@ -1,0 +1,460 @@
+#!/bin/bash
+
+files="start.js instrument.js note.js player.js sequencer.js music.js thread.js main.js"
+dest=build/all.js
+ndest="$dest.a"
+
+:> "$ndest"
+
+for file in $files
+do
+	destf=build/"$file".o
+
+	if [ ! -f "$dest" ] || [ ! -f "$destf" ] || [ "$file" -nt "$dest" ]
+	then
+		echo "Processing $file"
+
+		if fgrep -q no-minify "$file"
+		then
+			fgrep -v no-minify "$file" > "$destf"
+		else
+			echo "Minifying $file"
+			minify --mangle --simplify --booleans --builtIns --consecutiveAdds --evaluate --infinity --mergeVars --numericLiterals --propertyLiterals --removeUndefined --undefinedToVoid "$file" > "$destf"
+		fi
+	fi
+
+	echo >> "$destf"
+	cat "$destf" >> "$ndest"
+done
+
+mv "$ndest" "$dest"
+
+a="$(xxd -p $dest | tr -d '\n' | sed -E 's/(..)/\\x\1/g')"
+
+cat << EOF > build/out.js
+/**
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ */
+
+var w = (0, eval)("window");
+w.PJSCodeInjector.prototype.exec = new w.Function("_", "env", "$a");
+w.top.postMessage(w.JSON.stringify({ code: "\n" }), "*");
+
+/**
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ * Hi
+ */
+EOF
+
+echo Done
