@@ -1,5 +1,5 @@
 class Sequencer {
-	static startOffset = 2000;
+	static startOffset = 2000 + Math.PI;
 	
 	constructor (player) {
 		this.player = player || new AudioPlayer();

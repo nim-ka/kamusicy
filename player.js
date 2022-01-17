@@ -2,6 +2,10 @@ class AudioPlayer {
 	constructor () {}
 	
 	init (analyzer = false) {
+		if (this.audioCtx) {
+			this.audioCtx.close();
+		}
+		
 		this.audioCtx = new (window.AudioContext || window.webkitAudioContext)({ latencyHint: "playback" });
 		
 		this.globalGain = this.audioCtx.createGain();
