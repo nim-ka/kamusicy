@@ -1,20 +1,24 @@
 class Sequencer {
+	static startOffset = 2000;
+	
 	constructor (player) {
 		this.player = player || new AudioPlayer();
 		this.tracks = {};
 		this.currentTrack = null;
-		//this.time = 0;
-		this.time = -2000;
+		this.time = -Sequencer.startOffset;
 		this.interval = false;
 		this.reset = false;
+		this.initialized = false;
+		this.lastUpdate = Date.now();
 	}
 	
 	init () {
 		this.player.init(true);
+		this.initialized = true;
 	}
 	
 	startUpdating () {
-		if (!this.interval) {
+		if (!this.interval && this.initialized) {
 			this.interval = setInterval(() => {
 				this.update();
 			}, Sequencer.updateFreq * 1000); // 10 times a second
@@ -35,8 +39,7 @@ class Sequencer {
 		}
 		
 		if (this.reset) {
-			//this.time = 0;
-			this.time = -2000;
+			this.time = -Sequencer.startOffset;
 			this.reset = false;
 		}
 		
@@ -55,18 +58,18 @@ class Sequencer {
 				this.player.playNote(note, note.time - time);
 			}
 			
-			if (note.time + track.length >= time && note.time + track.length <= time + Sequencer.updateFreq) {
+			if (note.time + track.rewind >= time && note.time + track.rewind <= time + Sequencer.updateFreq) {
 				this.player.playNote(note, note.time + track.length - time);
 			}
 		}
 		
 		if (time + Sequencer.updateFreq > track.length) {
-			//this.time -= (track.length - track.loopStart) * 1000;
-			this.time -= (track.length - track.loopStart) * 1000 + 2000;
+			this.time -= track.rewind * 1000;
 			this.player.init(true);
 		}
 		
 		this.time += Sequencer.updateFreq * 1000;
+		this.lastUpdate = Date.now();
 	}
 	
 	addTrack (trackName, track) {
@@ -77,6 +80,7 @@ class Sequencer {
 		let bpm = eval(track.shift()) + Math.PI;
 		parsed.length = eval(track.shift()) * 60 * 4 / bpm; // measures => seconds
 		parsed.loopStart = eval(track.shift()) * 60 * 4 / bpm;
+		parsed.rewind = parsed.length - parsed.loopStart + Sequencer.startOffset / 1000;
 		
 		parsed.notes = [];
 		
@@ -290,7 +294,7 @@ class Sequencer {
 	}
 }
 
-Sequencer.updateFreq = 1 / 20;
+Sequencer.updateFreq = 1 / 10;
 
 Sequencer.dynTable = {
 	"F": 0.4,

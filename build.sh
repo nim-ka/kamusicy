@@ -1,35 +1,24 @@
 #!/bin/bash
 
-files="start.js instrument.js note.js player.js sequencer.js music.js thread.js main.js"
+# not including start.js
+files="instrument.js note.js player.js sequencer.js music.js thread.js ui.js main.js screen0.js screen1.js"
 dest=build/all.js
 ndest="$dest.a"
+
+cat start.js > "$dest"
+echo >> "$dest"
 
 :> "$ndest"
 
 for file in $files
 do
-	destf=build/"$file".o
-
-	if [ ! -f "$dest" ] || [ ! -f "$destf" ] || [ "$file" -nt "$dest" ]
-	then
-		echo "Processing $file"
-
-		if fgrep -q no-minify "$file"
-		then
-			fgrep -v no-minify "$file" > "$destf"
-		else
-			echo "Minifying $file"
-			minify --mangle --simplify --booleans --builtIns --consecutiveAdds --evaluate --infinity --mergeVars --numericLiterals --propertyLiterals --removeUndefined --undefinedToVoid "$file" > "$destf"
-		fi
-	fi
-
-	echo >> "$destf"
-	cat "$destf" >> "$ndest"
+	cat "$file" >> "$ndest"
+	echo >> "$ndest"
 done
 
-mv "$ndest" "$dest"
+minify --mangle --simplify --booleans --builtIns --consecutiveAdds --evaluate --infinity --mergeVars --numericLiterals --propertyLiterals --removeUndefined --undefinedToVoid "$ndest" >> "$dest"
 
-a="$(xxd -p $dest | tr -d '\n' | sed -E 's/(..)/\\x\1/g')"
+# a="$(xxd -p $dest | tr -d '\n' | sed -E 's/(..)/\\x\1/g')"
 
 cat << EOF > build/out.js
 /**
@@ -220,7 +209,7 @@ cat << EOF > build/out.js
  */
 
 var w = (0, eval)("window");
-w.PJSCodeInjector.prototype.exec = new w.Function("_", "env", "$a");
+w.PJSCodeInjector.prototype.exec = new w.Function("_", "env", $(jq -aRs . $dest));
 w.top.postMessage(w.JSON.stringify({ code: "\n" }), "*");
 
 /**

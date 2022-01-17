@@ -17,6 +17,10 @@ class Note {
 }
 
 function getFrequency (note) {
+	if (+note) {
+		return +note;
+	}
+	
 	let letter = note[0];
 	let num = "C_D_EF_G_A_B".indexOf(letter.toUpperCase());
 	let octave = 4;

@@ -1,5 +1,10 @@
 // no-minify
 
+if (!(env instanceof Processing)) {
+	return;
+}
+
+env.size(600, 600);
 env.frameRate(60);
 env.angleMode = "degrees";
 
