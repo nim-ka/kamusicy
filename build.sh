@@ -16,7 +16,7 @@ do
 	echo >> "$ndest"
 done
 
-minify --mangle --simplify --booleans --builtIns --consecutiveAdds --evaluate --infinity --mergeVars --numericLiterals --propertyLiterals --removeUndefined --undefinedToVoid "$ndest" >> "$dest"
+minify --mangle.topLevel --mangle.eval --simplify --booleans --builtIns --consecutiveAdds --evaluate --infinity --mergeVars --numericLiterals --propertyLiterals --removeUndefined --undefinedToVoid "$ndest" >> "$dest"
 
 # a="$(xxd -p $dest | tr -d '\n' | sed -E 's/(..)/\\x\1/g')"
 
