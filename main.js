@@ -14,6 +14,7 @@ let audioThread = new Thread(() => {
 
 let gameThread = new Thread(() => {
 	Screen.current.draw();
+	
 	return (resolve) => {
 		resolve();
 	};

@@ -76,8 +76,7 @@ class AudioPlayer {
 			AudioPlayer.ramp(node.frequency,
 				note.port.freq,
 				noteStart + note.port.start,
-				noteStart + note.port.end,
-				-Math.log(Math.abs(0.029 / (1 - node.frequency.value / note.port.freq))));
+				noteStart + note.port.end);
 		}
 		
 		if (note.vib && node.frequency) {
@@ -100,8 +99,8 @@ class AudioPlayer {
 	}
 }
 
-AudioPlayer.ramp = function (param, val, start, end, coef) {
-	param.setTargetAtTime(val, start, (end - start) / 3);
+AudioPlayer.ramp = function (param, val, start, end, coef = 3) {
+	param.setTargetAtTime(val, start, (end - start) / coef);
 };
 
 AudioPlayer.getVibratoCurve = function (dur, vibFreq, freq) {

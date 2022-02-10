@@ -11,9 +11,10 @@ env.angleMode = "degrees";
 PJSCodeInjector.prototype.restart = () => {};
 
 let fakeDraw = function () {
-	// Credit to Squishy for showing me how to call on the Old Gods
+	// Credit to Squishy for giving me the idea to make something using WebAudio
+	// Credit to alerte for something else
+	// Code is at https://github.com/nim-ka/kamusicy
 	this.callAlerte();
-	this.removeEars();
 };
 
 function updateEditor () {

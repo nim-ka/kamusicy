@@ -173,6 +173,7 @@ function trackManagerView () {
 
 let analyzerModeButton = new RectangleButton("toggle mode", 5, 80, 75, 15, () => analyzerMode ^= 1);
 
+/*
 class TrackButton extends RectangleButton {
 	constructor (name, pos) {
 		super(name, pos * 70 + 65, 570, 50, 20, () => {
@@ -183,6 +184,20 @@ class TrackButton extends RectangleButton {
 	
 	setPos (pos) {
 		this.x = pos * 70 + 65;
+	}
+}
+*/
+
+class TrackButton extends RectangleButton {
+	constructor (name, pos) {
+		super(name, pos * 70 + 30, 570, 50, 20, () => {
+			sequencer.stop();
+			sequencer.playTrack(name);
+		});
+	}
+	
+	setPos (pos) {
+		this.x = pos * 70 + 30;
 	}
 }
 
